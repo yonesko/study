@@ -20,8 +20,9 @@ class PointsCover {
 
     static Set<Integer> pointsCover(Set<Line> lines) {
         Set<Integer> ret = new HashSet<>();
-        SortedSet<Line> sortedLines = new TreeSet<>(new LineComparator());
+        List<Line> sortedLines = new ArrayList<>(lines.size());
         sortedLines.addAll(lines);
+        sortedLines.sort(Comparator.comparingInt(o -> o.b));
 
         int lastPoint = -1;
         for (Line line : sortedLines) {
@@ -43,19 +44,11 @@ class Line {
         this.b = Math.max(a, b);
     }
 
-
     @Override
     public String toString() {
         return "Line{" +
                 "a=" + a +
                 ", b=" + b +
                 '}';
-    }
-}
-
-class LineComparator implements Comparator<Line> {
-    @Override
-    public int compare(Line o1, Line o2) {
-        return o1.b - o2.b == 0 ? o1.a - o2.a : o1.b - o2.b;
     }
 }

@@ -16,6 +16,7 @@ public class PointsCoverTest {
 
         Assert.assertEquals(expectedPoints, points);
     }
+
     @Test
     public void pointsCover1() throws Exception {
         Set<Line> inputLines = new HashSet<>();

@@ -2,7 +2,7 @@ package stepik.algo;
 
 import java.util.*;
 
-class PointsCover {
+class GreedyAlgorithms {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -10,7 +10,7 @@ class PointsCover {
 
         while (sc.hasNext()) lines.add(new Line(sc.nextInt(), sc.nextInt()));
 
-        Set<Integer> points = PointsCover.pointsCover(lines);
+        Set<Integer> points = GreedyAlgorithms.pointsCover(lines);
 
         System.out.println(points.size());
 

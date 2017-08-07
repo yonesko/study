@@ -12,7 +12,7 @@ public class Main {
 
         while (sc.hasNext()) lines.add(new Line(sc.nextInt(), sc.nextInt()));
 
-        Set<Integer> points = PointsCover.pointsCover(lines);
+        Set<Integer> points = GreedyAlgorithms.pointsCover(lines);
 
         System.out.println(points.size());
 

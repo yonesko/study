@@ -5,12 +5,12 @@ import org.junit.Test;
 
 import java.util.*;
 
-public class PointsCoverTest {
+public class GreedyAlgorithmsTest {
     @Test
     public void bound() throws Exception {
         Set<Line> inputLines = new HashSet<>();
 
-        Set<Integer> points = PointsCover.pointsCover(inputLines);
+        Set<Integer> points = GreedyAlgorithms.pointsCover(inputLines);
 
         Set<Integer> expectedPoints = new HashSet<>();
 
@@ -24,7 +24,7 @@ public class PointsCoverTest {
         inputLines.add(new Line(2, 5));
         inputLines.add(new Line(3, 6));
 
-        Set<Integer> points = PointsCover.pointsCover(inputLines);
+        Set<Integer> points = GreedyAlgorithms.pointsCover(inputLines);
 
         Set<Integer> expectedPoints = new HashSet<>(Collections.singletonList(3));
 
@@ -41,7 +41,7 @@ public class PointsCoverTest {
         inputLines.add(new Line(4, 7));
         inputLines.add(new Line(5, 6));
 
-        Set<Integer> points = PointsCover.pointsCover(inputLines);
+        Set<Integer> points = GreedyAlgorithms.pointsCover(inputLines);
 
         Set<Integer> expectedPoints = new HashSet<>(Arrays.asList(3, 6));
 
@@ -141,7 +141,7 @@ public class PointsCoverTest {
         inputLines.add(new Line(91, 93));
         inputLines.add(new Line(79, 81));
 
-        Set<Integer> points = PointsCover.pointsCover(inputLines);
+        Set<Integer> points = GreedyAlgorithms.pointsCover(inputLines);
 
         Assert.assertTrue(checkEachLineCovered(inputLines, points));
     }
@@ -154,7 +154,7 @@ public class PointsCoverTest {
         lines.add(new Line(4, 4));
         lines.add(new Line(0, 5));
 
-        Set<Integer> points = PointsCover.pointsCover(lines);
+        Set<Integer> points = GreedyAlgorithms.pointsCover(lines);
 
         Set<Integer> expectedPoints = new HashSet<>(Arrays.asList(2, 4));
 
@@ -175,7 +175,7 @@ public class PointsCoverTest {
             lines.add(new Line(random.nextInt(point), point));
         }
 
-        Set<Integer> points = PointsCover.pointsCover(lines);
+        Set<Integer> points = GreedyAlgorithms.pointsCover(lines);
         Assert.assertTrue(expectedPoints.containsAll(points));
     }
 
@@ -190,7 +190,7 @@ public class PointsCoverTest {
             inputLines.add(new Line(random.nextInt(point), point));
         }
 
-        Set<Integer> points = PointsCover.pointsCover(inputLines);
+        Set<Integer> points = GreedyAlgorithms.pointsCover(inputLines);
 
         checkEachLineCovered(inputLines, points);
     }

@@ -1,19 +1,42 @@
 package stepik.algo.greedy;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Huffman {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        String input = sc.next();
-        Map<Character, String> codes = buildCodes(input);
-        String encoded = encode(input, codes);
+        int charsCount = sc.nextInt();
+        Map<Character, String> codes = new HashMap<>(charsCount);
+        StringBuilder decoded = new StringBuilder(sc.nextInt());
 
-        System.out.println(String.format("%d %d", codes.size(), encoded.length()));
-        codes.forEach((character, code) -> System.out.println(String.format("%c: %s", character, code)));
-        System.out.println(encoded);
+        sc.useDelimiter("\n");
+        Pattern charToCode = Pattern.compile("([a-z]): ([0-9]+)");
+        for (int i = 0; i < charsCount; i++) {
+            Matcher matcher = charToCode.matcher(sc.next());
+            if (matcher.matches()) codes.put(matcher.group(1).charAt(0), matcher.group(2));
+        }
+
+        String encoded = sc.next();
+
+        for (int i = 1, start = 0; i < encoded.length() + 1; i++) {
+            int finalI = i;
+            int finalStart = start;
+            List<Character> possibleChars = codes.entrySet().stream()
+                    .filter(entry -> entry.getValue().startsWith(encoded.substring(finalStart, finalI)))
+                    .map(Map.Entry::getKey)
+                    .collect(Collectors.toList());
+
+            if (possibleChars.size() == 1) {
+                decoded.append(possibleChars.get(0));
+                start = i;
+            }
+        }
+
+        System.out.println(decoded.toString());
     }
 
     static Map<Character, String> buildCodes(String input) {

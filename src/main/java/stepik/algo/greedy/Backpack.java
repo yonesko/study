@@ -19,7 +19,7 @@ class Backpack {
     }
 
     public static double backpack(int capacity, List<Item> items) {
-        items.sort(Comparator.<Item>comparingDouble(o -> 1.0D * o.cost / o.volume).reversed());
+        items.sort(Comparator.<Item>comparingDouble(o -> (double) o.cost / o.volume).reversed());
         double sumCost = 0D, volumeLeft = capacity;
 
         for (Item item : items) {

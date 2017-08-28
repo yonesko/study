@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class InversionNumber {
-    private static int invNum = 0;
+    private static long invNum = 0;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -53,12 +53,22 @@ public class InversionNumber {
         return merge(mergeSort(arr.subList(0, m)), mergeSort(arr.subList(m, arr.size())));
     }
 
-    static int count(int arr[]) {
+    static long count(int arr[]) {
         invNum = 0;
 
         count(Arrays.stream(arr)
                 .boxed()
                 .collect(Collectors.toList()));
+
+        return invNum;
+    }
+
+    static int countRobust(int arr[]) {
+        int invNum = 0;
+
+        for (int i = 0; i < arr.length - 1; i++)
+            for (int j = i + 1; j < arr.length; j++)
+                if (arr[i] > arr[j]) invNum++;
 
         return invNum;
     }

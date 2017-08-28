@@ -10,8 +10,7 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 import static org.junit.Assert.assertEquals;
-import static stepik.algo.devideandconquer.InversionNumber.merge;
-import static stepik.algo.devideandconquer.InversionNumber.mergeSort;
+import static stepik.algo.devideandconquer.InversionNumber.*;
 
 public class InversionNumberTest {
     @Test
@@ -19,8 +18,15 @@ public class InversionNumberTest {
         int arr[] = {2, 3, 9, 2, 9};
         assertEquals(2, InversionNumber.count(arr));
 
-        arr = new int[]{12,56,23,8,4};
+        arr = new int[]{12, 56, 23, 8, 4};
         assertEquals(8, InversionNumber.count(arr));
+
+        Random random = new Random();
+        for (int i = 0; i < 100 ; i++) {
+            arr = random.ints(10, 0, 20).toArray();
+            assertEquals(Arrays.toString(arr), InversionNumber.countRobust(arr), count(arr));
+        }
+
     }
 
     @Test

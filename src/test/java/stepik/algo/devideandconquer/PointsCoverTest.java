@@ -40,13 +40,13 @@ public class PointsCoverTest {
         Assert.assertEquals(Collections.emptyList(), PointsCover.cover(lines, points));
     }
 
-    @Test
+    @Test(timeout = 2000)
     public void many() throws Exception {
-        final int N = 5_000;
+        final int N = 50_000;
         List<PointsCover.Line> lines = Stream.generate(PointsCoverTest::randLine).limit(N).collect(Collectors.toList());
         List<Integer> points = R.ints(N, 0, BOUND).boxed().collect(Collectors.toList());
 
-        Assert.assertEquals(Collections.emptyList(), PointsCover.cover(lines, points));
+
     }
 
     static private PointsCover.Line randLine() {

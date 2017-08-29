@@ -22,30 +22,73 @@ public class PointsCover {
 
     static List<Integer> cover(List<PointsCover.Line> lines, List<Integer> points) {
         List<Integer> ret = new ArrayList<>(points.size());
-        HashMap<Integer, Integer> stat = new HashMap<>();
-//        System.out.println(String.format("a %s", Instant.now()));
+        HashMap<Integer, Integer> stat = new HashMap<>(points.size());
 
-        lines.parallelStream().forEach(line -> {
-            for (int i = line.getStart(); i <= line.getEnd(); i++)
-                stat.compute(i, (point, cover) -> cover == null ? 1 : cover + 1);
+        List<Point> all = new ArrayList<>(points.size());
+
+        for (Line line : lines) {
+            all.add(new Point(Point.Type.START, line.start));
+            all.add(new Point(Point.Type.END, line.end));
+        }
+
+        for (Integer point : points) all.add(new Point(Point.Type.DOT, point));
+
+        all.sort((p1, p2) -> {
+            int c = Integer.compare(p1.coord, p2.coord);
+
+            if (c == 0 && p1.type != p2.type) {
+                if (p1.type == Point.Type.START) return -1;
+                if (p2.type == Point.Type.START) return 1;
+
+                if (p1.type == Point.Type.END) return 1;
+                if (p2.type == Point.Type.END) return -1;
+            }
+
+            return c;
         });
 
-//        System.out.println(String.format("b %s", Instant.now()));
-        for (Integer point : points) ret.add(stat.getOrDefault(point, 0));
-//        System.out.println(String.format("c %s", Instant.now()));
+        int cover = 0;
+        for (Point point : all) {
+            switch (point.type) {
+                case START:
+                    cover++;
+                    break;
+                case END:
+                    cover--;
+                    break;
+                case DOT:
+                    stat.put(point.coord, cover);
+                    break;
+            }
+        }
+
+        for (Integer point : points) ret.add(stat.get(point));
+
         return ret;
+    }
+
+    static class Point {
+        final Type type;
+        final int coord;
+
+        public Point(Type type, int coord) {
+            this.type = type;
+            this.coord = coord;
+        }
+
+        enum Type {START, END, DOT}
+
+        @Override
+        public String toString() {
+            return "Point{" +
+                    "type=" + type +
+                    ", coord=" + coord +
+                    '}';
+        }
     }
 
     static class Line {
         final int start, end;
-
-        public int getStart() {
-            return start;
-        }
-
-        public int getEnd() {
-            return end;
-        }
 
         public Line(int start, int end) {
             this.start = Math.min(start, end);
